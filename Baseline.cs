@@ -75,6 +75,19 @@ namespace AdventOfCode
             return text.Split(c).Length - 1;
         }
 
+
+        //Regex.Matches(input, "OU=").Count
+        public static int CountStringInstances(this string text, string search)
+        {
+            return Regex.Matches(text, search).Count;
+        }
+
+        public static string ReplaceOccurrence(this string text, int Place, string Find, string Replace)
+        {
+            string result = text.Remove(Place, Find.Length).Insert(Place, Replace);
+            return result;
+        }
+
         public static int CountCharInstances(this string text, string search)
         {
             int vowels = 0;
@@ -103,6 +116,16 @@ namespace AdventOfCode
             return text.Substring(0, pos) + replace + text.Substring(pos + search.Length);
         }
 
+        public static string ReplaceLast(this string text, string search, string replace)
+        {
+            int pos = text.LastIndexOf(search);
+            if (pos < 0)
+            {
+                return text;
+            }
+            return text.Substring(0, pos) + replace + text.Substring(pos + search.Length);
+        }
+
         /// <summary>
         /// Check if the string is an integer
         /// </summary>
@@ -119,12 +142,17 @@ namespace AdventOfCode
             Array.Reverse(charArray);
             return new string(charArray);
         }
+
+        public static T Dump<T>(this T value, string prefix)
+        {
+            Console.WriteLine($"{prefix}{value}");
+            return value;
+        }
     }
 
     class BaseLine
     {
 
-        protected static bool ReqDataFile = true;
 
         protected List<int[]> GetFindPermutationsIntArrToList(int[] set)
         {
@@ -171,8 +199,6 @@ namespace AdventOfCode
                 if (subset.Sum() == target)
                 {
                     yield return subset.ToArray();
-                    //Console.WriteLine(string.Join(",", subset.ToArray()));
-                    //yield return subindexes.ToArray();
                 }
             }
         }
@@ -195,90 +221,10 @@ namespace AdventOfCode
             return output;
         }
 
-        protected IEnumerable<T[]> Permutations<T>(T[] rgt)
+        protected static IEnumerable<T> Shuffle<T>(IEnumerable<T> source)
         {
-            IEnumerable<T[]> PermutationsRec(int i)
-            {
-                if (i == rgt.Length)
-                {
-                    yield return rgt.ToArray();
-                }
-
-                for (var j = i; j < rgt.Length; j++)
-                {
-                    (rgt[i], rgt[j]) = (rgt[j], rgt[i]);
-                    foreach (var perm in PermutationsRec(i + 1))
-                    {
-                        yield return perm;
-                    }
-                    (rgt[i], rgt[j]) = (rgt[j], rgt[i]);
-                }
-            }
-            return PermutationsRec(0);
-        }
-
-        protected static List<int> ParseInputStrtoListInt(string filename)
-        {
-            List<int> list = new List<int>();
-            using (var reader = new StreamReader(filename))
-            {
-                while (!reader.EndOfStream)
-                {
-                    var line = reader.ReadLine();
-                    list.Add(int.Parse(line));
-                }
-            }
-            return list;
-        }
-
-        protected static List<long> ParseInputStrtoListLng(string filename)
-        {
-            List<long> list = new List<long>();
-            using (var reader = new StreamReader(filename))
-            {
-                while (!reader.EndOfStream)
-                {
-                    var line = reader.ReadLine();
-                    list.Add(Convert.ToInt64(line));
-                }
-            }
-            return list;
-        }
-
-        protected static string ParseInputStrtoStr(string filename)
-        {
-            string retVal = "";
-            using (var reader = new StreamReader(filename))
-            {
-
-                while (!reader.EndOfStream)
-                {
-                    var line = reader.ReadLine();
-                    retVal += line;
-                }
-            }
-            return retVal;
-        }
-
-        protected static byte[] ParseInputStrtoByte(string filename)
-        {
-            byte[] p = System.IO.File.ReadAllBytes(filename);
-            return p;
-        }
-
-        protected static List<string> ParseInputStrtoListStr(string filename)
-        {
-            List<string> list = new List<string>();
-
-            using (var reader = new StreamReader(filename))
-            {
-                while (!reader.EndOfStream)
-                {
-                    var line = reader.ReadLine();
-                    list.Add(line);
-                }
-            }
-            return list;
+            Random rnd = new Random();
+            return source.OrderBy<T, int>((item) => rnd.Next());
         }
     }
 }
