@@ -12,7 +12,7 @@ namespace AdventOfCode.Y2020
 
         private IEnumerable<int> Day1(string inData, bool part2 = false)
         {
-            List<string> list = inData.Split("\r\n").ToList();
+            List<string> list = inData.Split("\n").ToList();
             List<string> holdingBagsDict = new List<string>(0);
             List<string> holdingBagsFnd = new List<string>(0);
             List<string> tree = new List<string>(0);

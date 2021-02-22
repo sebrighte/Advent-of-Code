@@ -143,7 +143,7 @@ namespace AdventOfCode
             return new string(charArray);
         }
 
-        public static T Dump<T>(this T value, object prefix)
+        public static T Dump<T>(this T value, object prefix = null)
         {
             Console.WriteLine($"{prefix}{value}");
             return value;

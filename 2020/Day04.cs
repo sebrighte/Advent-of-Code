@@ -15,7 +15,7 @@ namespace AdventOfCode.Y2020
         {
             string passportEntry = "";
 
-            foreach (var line in inData.Split("\r\n").ToArray())
+            foreach (var line in inData.Split("\n").ToArray())
             {
                 //List<string> list = new List<string>();
                 if (line == "") passportEntry += "$";

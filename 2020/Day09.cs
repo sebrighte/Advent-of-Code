@@ -15,7 +15,7 @@ namespace AdventOfCode.Y2020
 
         private IEnumerable<long> Day1(string inData, bool part2 = false)
         {
-            List<long> listval = inData.Split("\r\n").Select(x => Convert.ToInt64(x)).ToList();
+            List<long> listval = inData.Split("\n").Select(x => Convert.ToInt64(x)).ToList();
 
             clistLng = listval;
             cmultilpes = 25;

@@ -18,7 +18,7 @@ namespace AdventOfCode.Y2015
             //Test
             //inData = "H => HO\r\nH => OH\r\nO => HH\r\n\r\nHOH";
            
-            var input = inData.Split("\r\n").ToList();
+            var input = inData.Split("\n").ToList();
             string startingpoint = input[input.Count -1];
             input.RemoveRange(input.Count - 2, 2);
 
@@ -53,7 +53,7 @@ namespace AdventOfCode.Y2015
         {
             List<KeyValuePair<string, string>> replacements = new List<KeyValuePair<string, string>>();
 
-            var input = inData.Split("\r\n").ToList();
+            var input = inData.Split("\n").ToList();
             string medicineMolecule = input[input.Count - 1];
             input.RemoveRange(input.Count - 2, 2);
 

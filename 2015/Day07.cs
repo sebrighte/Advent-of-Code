@@ -17,7 +17,7 @@ namespace AdventOfCode.Y2015.Day07
         private object Day1(string inData, bool useExisting = false)
         {
             //if (p2 != 0) values.Clear();
-            List<string> input = inData.Split("\r\n").ToList();
+            List<string> input = inData.Split("\n").ToList();
             values.Clear();
 
             while (!values.ContainsKey("a"))

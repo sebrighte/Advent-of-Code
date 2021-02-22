@@ -431,7 +431,7 @@ namespace AdventOfCode.Y2020
         private void LoadImages(string DataFile)
         {
             satImages = new List<SatImage>();
-            input = DataFile.Split("\r\n").ToList();
+            input = DataFile.Split("\n").ToList();
 
             int x = 0;
             int tilectr = 0;

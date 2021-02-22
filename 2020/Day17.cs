@@ -15,7 +15,7 @@ namespace AdventOfCode.Y2020
             //Console.WriteLine("\n\nDay 17: Conway Cubes\n");
 
             //List<string> input = FileToArrayStr(@"..\..\Data\Day17Input.txt");
-            List<string> input = inputStr.Split("\r\n").ToList();
+            List<string> input = inputStr.Split("\n").ToList();
 
             //int cubeSize = Convert.ToInt32(Math.Pow(input[0].Length,3))
             int cubeSize = 50;
@@ -56,7 +56,7 @@ namespace AdventOfCode.Y2020
 
             //List<string> input = FileToArrayStr(@"..\..\Data\Day17Input.txt");
 
-            List<string> input = inputStr.Split("\r\n").ToList();
+            List<string> input = inputStr.Split("\n").ToList();
 
             //int cubeSize = Convert.ToInt32(Math.Pow(input[0].Length,3));
 

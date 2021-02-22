@@ -12,7 +12,7 @@ namespace AdventOfCode.Y2020
 
         private IEnumerable<long> Day1(string inData, bool part2 = false)
         {
-            List<string> input = inData.Split("\r\n").ToList();
+            List<string> input = inData.Split("\n").ToList();
             long resultDay1 = 0;
             long resultDay2 = 0;
             foreach (string inputLineS in input)

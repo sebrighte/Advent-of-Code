@@ -14,7 +14,7 @@ namespace AdventOfCode.Y2015
         private IEnumerable<int> Day1(string input, bool part2 = false)
         {
             List<string[]> sues = new List<string[]>();
-            foreach (string line in input.Split("\r\n"))
+            foreach (string line in input.Split("\n"))
             {               
                 var match = Regex.Match(line, @"Sue \d*: (.*), (.*), (.*)");
                 sues.Add(new string[] {

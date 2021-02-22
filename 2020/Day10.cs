@@ -20,7 +20,7 @@ namespace AdventOfCode.Y2020
 
         private IEnumerable<long> Day1(string inData, bool part2 = false)
         {
-            List<int> list = inData.Split("\r\n").Select(x => Convert.ToInt32(x)).ToList();
+            List<int> list = inData.Split("\n").Select(x => Convert.ToInt32(x)).ToList();
 
             clistInt = list;
             clistInt.Sort();

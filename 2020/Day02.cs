@@ -12,7 +12,7 @@ namespace AdventOfCode.Y2020
 
         private object Day1(string inData)
         {
-            List<string> list = inData.Split("\r\n").ToList();
+            List<string> list = inData.Split("\n").ToList();
 
             string minVal;
             string maxVal;

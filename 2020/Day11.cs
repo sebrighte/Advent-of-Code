@@ -20,7 +20,7 @@ namespace AdventOfCode.Y2020
 
         private IEnumerable<int> Day1(string inData, bool part2 = false)
         {
-            List<string> list = inData.Split("\r\n").ToList();
+            List<string> list = inData.Split("\n").ToList();
 
             int ctrLatest;
             int ctrLast;

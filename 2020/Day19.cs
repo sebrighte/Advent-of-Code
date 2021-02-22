@@ -17,7 +17,7 @@ namespace AdventOfCode.Y2020
 
         private IEnumerable<int> Day1(string inData, bool part2 = false)
         {
-            inputList = inData.Split("\r\n").ToList();
+            inputList = inData.Split("\n").ToList();
 
             receivedMessages.Clear();
 
@@ -60,7 +60,7 @@ namespace AdventOfCode.Y2020
 
         private IEnumerable<int> Day2(string inData, bool part2 = false)
         {
-            inputList = inData.Split("\r\n").ToList();
+            inputList = inData.Split("\n").ToList();
 
             receivedMessages.Clear();
 
