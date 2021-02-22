@@ -1,0 +1,3 @@
+AdventOfCode.Y2015.Day20
+Part1: 786240
+Part2: 831600

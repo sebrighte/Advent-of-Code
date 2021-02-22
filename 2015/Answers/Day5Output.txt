@@ -1,0 +1,3 @@
+AdventOfCode.Y2015.Day05
+Part1: 236
+Part2: 51

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AdventOfCode.Y2015.Day02
+namespace AdventOfCode.Y2015
 {
     [ProblemName("Day 2: I Was Told There Would Be No Math")]
     class Day02 : BaseLine, Solution

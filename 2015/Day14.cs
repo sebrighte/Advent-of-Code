@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AdventOfCode.Y2015.Day14
+namespace AdventOfCode.Y2015
 {
     //2696
     //1084

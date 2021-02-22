@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace AdventOfCode.Y2015.Day11
+namespace AdventOfCode.Y2015
 {
     [ProblemName("Day 11: Corporate Policy")]
     class Day11 : BaseLine, Solution

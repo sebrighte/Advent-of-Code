@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AdventOfCode.Y2015.Day07
+namespace AdventOfCode.Y2015
 {
     [ProblemName("Day 7: Some Assembly Required")]
     class Day07 : BaseLine, Solution

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace AdventOfCode.Y2015.Day08
+namespace AdventOfCode.Y2015
 {
     [ProblemName("Day 8: Matchsticks")]
     class Day08 : BaseLine, Solution

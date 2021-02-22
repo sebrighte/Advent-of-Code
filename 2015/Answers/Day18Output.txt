@@ -1,0 +1,3 @@
+AdventOfCode.Y2015.Day18
+Part1: 0
+Part2: 1

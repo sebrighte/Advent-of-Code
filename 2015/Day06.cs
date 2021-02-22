@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AdventOfCode.Y2015.Day06
+namespace AdventOfCode.Y2015
 {
     [ProblemName("Day 6: Probably a Fire Hazard")]
     class Day06 : BaseLine, Solution

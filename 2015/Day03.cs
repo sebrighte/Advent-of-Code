@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AdventOfCode.Y2015.Day03
+namespace AdventOfCode.Y2015
 {
     [ProblemName("Day 3: Perfectly Spherical Houses in a Vacuum")]
     class Day03 : BaseLine, Solution

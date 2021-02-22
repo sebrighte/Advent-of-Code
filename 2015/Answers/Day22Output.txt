@@ -1,0 +1,3 @@
+AdventOfCode.Y2015.Day22
+Part1: 953
+Part2: 1289

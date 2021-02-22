@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace AdventOfCode.Y2015.Day01
+namespace AdventOfCode.Y2015
 {
     [ProblemName("Day 1: Not Quite Lisp")]
     class Day01 : BaseLine, Solution

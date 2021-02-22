@@ -58,14 +58,14 @@ namespace AdventOfCode
                     else
                         year = solution.Year();
 
-                    Console.WriteLine();
-                    Console.WriteLine($"{solution.GetName()}");
-                    //var answers = new List<string>();
-                    var stopwatch = Stopwatch.StartNew();
-                    var indent = "  ";
+                    var indent = "\t";
                     var status = "✓";
-                    
-                    
+                    Console.WriteLine();
+                    Console.WriteLine($"{year} - {solution.GetName()}");
+                    var answers = new List<string>();
+                    var stopwatch = Stopwatch.StartNew();
+
+                    answers.Add(solution.ToString());
 
                     var input = "";
                     var dayName = solution.GetName().Split(':')[0].Replace(" ", "");
@@ -87,6 +87,7 @@ namespace AdventOfCode
 
                     var solutionResult = solution.PartOne(input);
                     {
+                        answers.Add($"Part1: {solutionResult}");
                         var ticks = stopwatch.ElapsedTicks;
                         Write(ConsoleColor.DarkGreen, $"{indent}{status}");
                         Console.Write($" {solutionResult} ");
@@ -103,6 +104,7 @@ namespace AdventOfCode
                     solutionResult = solution.PartTwo(input);
                     if (solutionResult != null)
                     {
+                        answers.Add($"Part2: {solutionResult}");
                         var ticks = stopwatch.ElapsedTicks;
                         Write(ConsoleColor.DarkGreen, $"{indent}{status}");
                         Console.Write($" {solutionResult} ");
@@ -116,6 +118,8 @@ namespace AdventOfCode
                         );
                         stopwatch.Restart();
                     }
+                    string answerfileName = $@"..\..\..\{year}\answers\{dayName}Output.txt";
+                    System.IO.File.WriteAllLines(answerfileName, answers);
                 }
             }
         }

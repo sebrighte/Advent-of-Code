@@ -1,0 +1,2 @@
+AdventOfCode.Y2020.Day25
+Part1: 3803729

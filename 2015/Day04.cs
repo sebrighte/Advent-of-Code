@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace AdventOfCode.Y2015.Day04
+namespace AdventOfCode.Y2015
 {
     [ProblemName("Day 4: The Ideal Stocking Stuffer")]
     class Day04 : BaseLine, Solution

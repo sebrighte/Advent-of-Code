@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 
-namespace AdventOfCode.Y2015.Day12
+namespace AdventOfCode.Y2015
 {
     [ProblemName("Day 12: JSAbacusFramework.io")]
     class Day12 : BaseLine, Solution
