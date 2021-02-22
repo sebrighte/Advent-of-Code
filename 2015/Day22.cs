@@ -76,9 +76,6 @@ namespace AdventOfCode.Y2015
         {
             int PlayerWins = 0;
 
-            
-
-
             while (true)
             {
                 my_mana = WizMana;
