@@ -1,4 +1,4 @@
-﻿#AOC 2015 Index
+#AOC 2015 Index
 
 Day01 - String manipulation
 Day02 - Shape volumes
