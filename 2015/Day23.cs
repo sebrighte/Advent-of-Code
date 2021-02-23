@@ -7,13 +7,51 @@ namespace AdventOfCode.Y2015
     [ProblemName("Day 23: Opening the Turing Lock")]
     class Day23 : BaseLine, Solution
     {
-        public object PartOne(string input) => Day1(input).First();
-        public object PartTwo(string input) => Day1(input, true).First();
+        public object PartOne(string input) => Solve(input, 0).First();
+        public object PartTwo(string input) => Solve(input, 1).First();
 
-        private IEnumerable<string> Day1(string inData, bool part2 = false)
+        private IEnumerable<object> Solve(string inData, long a)
         {
-            //List<string> input = inData.Split("\r\n").ToList();
-            yield return $"To Do {inData}";
+            int b = 0;
+            int ctr = 0;
+            string[] instArr;
+
+            //inData = "inc a\r\njio a, +2\r\ntpl a\r\ninc a";
+
+            List<string> input = inData.Split("\r\n").ToList();
+
+            while (ctr < input.Count)
+            {
+                instArr = input[ctr].Replace(",", "").Split(' ').ToArray();
+
+                switch (instArr[0])
+                {
+                    case "hlf":
+                        if (instArr[1] == "a") a /= 2;
+                        ctr++;
+                        break;
+                    case "tpl":
+                        if (instArr[1] == "a") a *= 3;
+                        ctr++;
+                        break;
+                    case "inc":
+                        if (instArr[1] == "a") a++;
+                        else b++;
+                        ctr++;
+                        break;
+                    case "jmp":
+                        ctr += int.Parse(instArr[1]);
+                        break;
+                    case "jie":
+                        ctr+= a%2 == 0? int.Parse(instArr[2]) : 1;
+                        break;
+                    case "jio":
+                        ctr+= a==1? int.Parse(instArr[2]) : 1;
+                        break;
+                }
+            }
+            yield return b;
         }
     }
 }
+

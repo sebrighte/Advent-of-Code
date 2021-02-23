@@ -226,6 +226,64 @@ namespace AdventOfCode
             Random rnd = new Random();
             return source.OrderBy<T, int>((item) => rnd.Next());
         }
+
+        /*
+        int[] arr = new int[] { 1, 1, 1, 2, 2, 3, 4 };
+        //string[] arr = new string[] { "AB", "BH", "CY", "DP" };
+        var res = GetIntPermutations(arr);
+
+        string p = "";
+            foreach (var lst in res)
+                p +=  string.Join(" ", lst.ToArray()) + "\r\n";
+            yield return p;
+        */
+
+        /// <summary>
+        /// GetIntPermutations from integer array
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="elements"></param>
+        /// <returns>List<List<int>></returns>
+        protected List<List<int>> GetIntPermutations(int[] elements)
+        {
+            var tmp = new List<int>();
+            List<List<int>> res = new List<List<int>>();
+            CollectAll(elements.ToList(), tmp, res);
+            //return res;
+            return res.GroupBy(x => String.Join(",", x))
+                         .Select(x => x.First().ToList())
+                         .ToList();
+        }
+
+        /// <summary>
+        /// GetIntPermutations from string array
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="elements"></param>
+        /// <returns>List<List<string>></returns>
+        protected List<List<string>> GetIntPermutations(string[] elements)
+        {
+            var tmp = new List<string>();
+            List<List<string>> res = new List<List<string>>();
+            CollectAll(elements.ToList(), tmp, res);
+            return res;
+        }
+
+        private void CollectAll<T> (List<T> remaining, IList<T> soFar, List<List<T>> all)
+        {
+            if (soFar.Count != 0)
+            {
+                all.Add(soFar.ToList());
+            }
+            foreach (var item in remaining.ToList())
+            {
+                remaining.Remove(item);
+                soFar.Add(item);
+                CollectAll(remaining, soFar, all);
+                soFar.Remove(item);
+                remaining.Add(item);
+            }
+        }
     }
 }
 
