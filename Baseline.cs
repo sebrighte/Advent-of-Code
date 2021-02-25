@@ -178,6 +178,38 @@ namespace AdventOfCode
             return output;
         }
 
+        protected IEnumerable<(int, long)> GetCombinationsMult(List<int> numbers, int target)
+        {
+            int combinations = (int)(Math.Pow(2, numbers.Count) - 1);
+
+            for (int i = 0; i < combinations; i++)
+            {
+                List<int> subset = new List<int>();
+                List<int> subindexes = new List<int>();
+
+                for (int j = 0; j < numbers.Count; j++)
+                {
+                    if (((i & (1 << j)) >> j) == 1)
+                    {
+                        subset.Add(numbers[j]);
+                        subindexes.Add(j);
+                        
+                    }
+                }
+
+                //long result = subset.Aggregate(1, (a, b) => a * b);
+                long result = 1;
+                foreach (var item in subset)
+                {
+                    result *= item;
+                }
+                 
+                if (subset.Sum() == target && result > 0)
+                    yield return (subset.Count, result);
+
+            }
+        }
+
         protected IEnumerable<int[]> GetCombinations(List<int> numbers, int target)
         {
             int combinations = (int)(Math.Pow(2, numbers.Count) - 1);

@@ -1,0 +1,3 @@
+AdventOfCode.Y2015.Day24
+Part1: 11846773891
+Part2: 80393059
