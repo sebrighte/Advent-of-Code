@@ -92,7 +92,7 @@ namespace AdventOfCode.Y2015
         public Lights(string inputData)
         {
             dictGrid.Clear();
-            List<string> input = inputData.Split("\r\n").ToList();
+            List<string> input = inputData.Split("\n").ToList();
             gridSize = input.Count();
 
             int x = 0;

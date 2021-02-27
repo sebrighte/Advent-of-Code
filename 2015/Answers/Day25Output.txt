@@ -1,0 +1,2 @@
+AdventOfCode.Y2015.Day25
+Part1: 9132360

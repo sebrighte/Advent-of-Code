@@ -23,3 +23,6 @@
 * Day 20 - Loops 
 * Day 21 - Regex String 
 * Day 22 - Lazy Permutations
+* Day 23 - Select Case
+* Day 24 - Selecting combinations given value
+* Day 25 - 
