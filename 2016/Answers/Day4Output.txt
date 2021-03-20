@@ -1,0 +1,3 @@
+AdventOfCode.Y2016.Day04
+Part 1: 137896
+Part 2: 501

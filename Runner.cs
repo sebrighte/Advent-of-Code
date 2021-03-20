@@ -85,9 +85,12 @@ namespace AdventOfCode
                         //continue;
                     }
 
-                    var solutionResult = solution.PartOne(input);
+
+                    for (int part = 1; part < 3; part++)
                     {
-                        answers.Add($"Part1: {solutionResult}");
+                        var solutionResult = part == 1 ? solution.PartOne(input) : solution.PartTwo(input);
+
+                        answers.Add($"Part {part}: {solutionResult}");
                         var ticks = stopwatch.ElapsedTicks;
                         Write(ConsoleColor.DarkGreen, $"{indent}{status}");
                         Console.Write($" {solutionResult} ");
@@ -100,24 +103,9 @@ namespace AdventOfCode
                             diff > 1000 ? $"({(diff / 1000).ToString("F1")} s)" : $"({diff.ToString("F3")} ms)"
                         );
                         stopwatch.Restart();
+                        //Console.Beep();
                     }
-                    solutionResult = solution.PartTwo(input);
-                    if (solutionResult != null)
-                    {
-                        answers.Add($"Part2: {solutionResult}");
-                        var ticks = stopwatch.ElapsedTicks;
-                        Write(ConsoleColor.DarkGreen, $"{indent}{status}");
-                        Console.Write($" {solutionResult} ");
-                        var diff = ticks * 1000.0 / Stopwatch.Frequency;
 
-                        WriteLine(
-                            diff > 15000 ? ConsoleColor.Red :
-                            diff > 10000 ? ConsoleColor.Yellow :
-                            ConsoleColor.DarkGreen,
-                            diff > 1000 ? $"({(diff / 1000).ToString("F1")} s)" : $"({diff.ToString("F3")} ms)"
-                        );
-                        stopwatch.Restart();
-                    }
                     string answerfileName = $@"..\..\..\{year}\answers\{dayName}Output.txt";
                     System.IO.File.WriteAllLines(answerfileName, answers);
                 }

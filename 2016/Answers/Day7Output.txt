@@ -1,0 +1,3 @@
+AdventOfCode.Y2016.Day07
+Part 1: 115
+Part 2: 231

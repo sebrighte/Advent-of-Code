@@ -1,0 +1,3 @@
+AdventOfCode.Y2016.Day02
+Part 1: 48584
+Part 2: 563B6

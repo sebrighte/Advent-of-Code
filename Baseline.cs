@@ -4,6 +4,8 @@ using System.Linq;
 using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Globalization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace AdventOfCode
 {
@@ -62,6 +64,52 @@ namespace AdventOfCode
         }
     }
 
+    public static class ArrayExtensions
+    {
+        public static char[,] FillCharArray(this char[,] arr, char c)
+        {
+            for (int i = 0; i < arr.GetLength(0); i++)
+            {
+                for (int j = 0; j < arr.GetLength(1); j++)
+                {
+                    arr[i, j] = c;
+                }
+            }
+            return arr;
+        }
+
+        public static string DrawCharArray(this char[,] arr, bool display = true)
+        {
+            if(display) Console.WriteLine();
+            string tmp = "\r\n";
+            for (int i = 0; i < arr.GetLength(0); i++)
+            {
+                for (int j = 0; j < arr.GetLength(1); j++)
+                {
+                    if (display) Console.Write(arr[i, j]);
+                    tmp += arr[i, j];
+                }
+                if (display) Console.WriteLine();
+                tmp += "\r\n";
+            }
+            if (display) Console.WriteLine();
+            return tmp;
+        }
+
+        public static int CountCharArray(this char[,] arr, char c)
+        {
+            int ctr = 0;
+            for (int i = 0; i < arr.GetLength(0); i++)
+            {
+                for (int j = 0; j < arr.GetLength(1); j++)
+                {
+                    if (arr[i, j] == c) ctr++;
+                }
+            }
+            return ctr;
+        }
+    }
+
     public static class StringExtensionMethods
     {
 
@@ -70,9 +118,47 @@ namespace AdventOfCode
             return source.Select((item, index) => (item, index));
         }
 
+
         public static int CountFindChar(this string text, char c)
         {
             return text.Split(c).Length - 1;
+        }
+
+        public static int CountFindString(this string text, string c)
+        {
+            return text.Split(c).Length - 1;
+        }
+
+        public static string ReplaceAndExport(this string text, char c1, char c2, out string export)
+        {
+            //export = new {indexStart = text.IndexOf(c1), indexEnd = text.IndexOf(c2), value = text.Substring(text.IndexOf(c1) + 1, text.IndexOf(c2) - text.IndexOf(c1) -1) };
+            if(!text.Contains(c1) || !text.Contains(c2))
+            {
+                export = "";
+                return text;
+            }
+
+
+            export = text.Substring(text.IndexOf(c1) + 1, text.IndexOf(c2) - text.IndexOf(c1) - 1);
+            return text.Remove(text.IndexOf(c1), text.IndexOf(c2) - text.IndexOf(c1) + 1);
+        }
+
+        public static Int32 ToInt32(this string number)
+        {
+            return Int32.Parse(
+                number,
+                NumberStyles.Integer,
+                CultureInfo.CurrentCulture.NumberFormat);
+        }
+
+        public static string Repeat(this string text, int num)
+        {
+            string retVal = "";
+            for (int i = 0; i < num; i++)
+            {
+                retVal += text;
+            }
+            return retVal;
         }
 
 
@@ -143,10 +229,65 @@ namespace AdventOfCode
             return new string(charArray);
         }
 
-        public static T Dump<T>(this T value, object prefix = null)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="prefix">Text to show before dumpted value</param>
+        /// <param name="suffix">Text to show after dumpted value</param>
+        /// <returns></returns>
+        public static void Dump<T>(this T value, object prefix = null, object suffix = null)
         {
-            Console.WriteLine($"{prefix}{value}");
-            return value;
+            Console.WriteLine($"{prefix}{value}{suffix}");
+        }
+
+        /// <summary>
+        /// Makes a copy from the object.
+        /// Doesn't copy the reference memory, only data.
+        /// </summary>
+        /// <typeparam name="T">Type of the return object.</typeparam>
+        /// <param name="item">Object to be copied.</param>
+        /// <returns>Returns the copied object.</returns>
+        public static T Clone<T>(this object item)
+        {
+            if (item != null)
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                MemoryStream stream = new MemoryStream();
+
+                formatter.Serialize(stream, item);
+                stream.Seek(0, SeekOrigin.Begin);
+
+                T result = (T)formatter.Deserialize(stream);
+
+                stream.Close();
+
+                return result;
+            }
+            else
+                return default(T);
+        }
+
+        public static IList<T> DupList<T>(this IList<T> listToClone) where T : ICloneable
+        {
+            return listToClone.Select(item => (T)item.Clone()).ToList();
+        }
+
+        public static List<List<string>> Dup(this List<List<string>> listToClone)
+        {
+            return new List<List<string>>(listToClone.ToArray());
+        }
+
+        public static HashSet<string> Dup(this HashSet<string> setToClone)
+        {
+            HashSet<string> copy = new HashSet<string>();
+
+            foreach (var item in setToClone)
+            {
+                copy.Add(item);
+            }
+            return copy;
         }
     }
 
@@ -298,6 +439,14 @@ namespace AdventOfCode
             var tmp = new List<string>();
             List<List<string>> res = new List<List<string>>();
             CollectAll(elements.ToList(), tmp, res);
+            return res;
+        }
+
+        protected List<List<string>> GetIntPermutations(List<string> elements)
+        {
+            var tmp = new List<string>();
+            List<List<string>> res = new List<List<string>>();
+            CollectAll(elements, tmp, res);
             return res;
         }
 
