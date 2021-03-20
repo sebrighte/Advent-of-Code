@@ -8,4 +8,4 @@ LockDown Fun Just for a bit of lockdown fun thought, I would dust of my old C# s
 
 Probably not the best or most efficient code, might go back and refine later, (or try in Rust, haskell, Dart or Python...) but gets all the right answers...
 
-Lots of skills to practice (well, I used all these....) File and IO functions String manipulation single, 2d and 3d arrays Binary data manipulation Recursice functions (lots of...) Regex functions Vectors Hastables Lists, queues, stacks and dictionaries Images (as arrays) Data searching and analysing Encryption
+Lots of skills to practice (well, I used all these....) File and IO functions String manipulation single, 2d and 3d arrays Binary data manipulation Recursice functions (lots of...) Regex functions Vectors Hastables Lists, queues, stacks, search algorithms and dictionaries, Images (as arrays) Data searching and analysing Encryption
