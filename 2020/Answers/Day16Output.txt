@@ -1,3 +1,3 @@
 AdventOfCode.Y2020.Day16
-Part1: 19060
-Part2: 953713095011
+Part 1: 19060
+Part 2: 953713095011

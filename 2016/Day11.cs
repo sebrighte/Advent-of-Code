@@ -27,37 +27,32 @@ namespace AdventOfCode.Y2016
 
         //public object PartOne(string input) => Simple();
         //public object PartTwo(string input) => Simple(true);
-        
+
         public object PartOne(string input) => aStarAlgorithm(input);
         public object PartTwo(string input) => aStarAlgorithm(input, 2);
 
-        private int aStarAlgorithm(string inData, int add = 0)
+        private object aStarAlgorithm(string inData, int add = 0)
         {
-            //Console.WriteLine("A* Method");
             AAlgo algo = new AAlgo();
-            return algo.start(ParseInput(inData, add, false));
+            return algo.start(ParseInput(inData, add)) + " (A*)";
         }
 
-        private int Simple(bool day2 = false)
+        private object Simple(bool day2 = false)
         {
-            //Console.WriteLine("Simple Method");
             simpleMethod sm = new simpleMethod();
-            return sm.Run(day2);
+            return sm.Run(day2) + " (Math)";
         }
 
-        private int Greedy(List<string[]> RTGIn)
+        private object Greedy(List<string[]> RTGIn)
         {
-            //Console.WriteLine("Greedy Method");
             Greedy gr = new Greedy();
-            return gr.iterate(RTGIn, 0, 0);
+            GState gs = new GState(RTGIn, null, 0, 0);
+            return gr.iterate(gs) + " (Greedy)";
         }
 
-        private List<string[]> ParseInput(string inData, int additional, bool fullfat = false)
+        private List<string[]> ParseInput(string inData, int additional)
         {
             //inData = "The first floor contains a hydrogen-compatible microchip and a lithium-compatible microchip.\r\nThe second floor contains a hydrogen generator.\r\nThe third floor contains a lithium generator.\r\nThe fourth floor contains nothing relevant.";
-
-            //history.Clear();
-            //maxIteration = 1000;
 
             List<string[]> RTG = new List<string[]>();
             List<string> input = inData.Split("\r\n").ToList();
@@ -70,9 +65,9 @@ namespace AdventOfCode.Y2016
 
                 for (int i = 0; i < match.Count; i++)
                 {
-                    if (fullfat)
-                        floor[i] = (match[i].Value.Split(" ")[0].Substring(0, 1).ToUpper() + match[i].Value.Split(" ")[1].Substring(0, 1).ToUpper());
-                    else
+                    //if (fullfat)
+                       // floor[i] = (match[i].Value.Split(" ")[0].Substring(0, 1).ToUpper() + match[i].Value.Split(" ")[1].Substring(0, 1).ToUpper());
+                    //else
                         floor[i] = match[i].Value.Split(" ")[1].Substring(0, 1);
                 }
 
@@ -94,42 +89,59 @@ namespace AdventOfCode.Y2016
     }
 
     #region Greedy Solution
+
+    class GState
+    {
+        public List<string[]> RTG;
+        public GState Parent;
+        public int Moves;
+        public string value;
+        public int currentFloor;
+
+        public GState(List<string[]> RTGIn, GState parent, int moves, int floor)
+        {
+            RTG = RTGIn.ToList();
+            Parent = parent;
+            Moves = moves;
+            currentFloor = floor;
+        }
+    }
+
     class Greedy
     {
         HashSet<string> history = new HashSet<string>();
         int maxIteration = 1000;
 
-        public int iterate(List<string[]> RTG, int moves, int currentFloor)
+        public int iterate(GState gs)
         {
-            if (moves > maxIteration)
+            if (gs.Moves > maxIteration)
             {
                 return 0;
             }
 
-            if (RTG[3].Count() == RTG.SelectMany(a => a).Count())
+            if (gs.RTG[3].Count() == gs.RTG.SelectMany(a => a).Count())
             {
-                if (moves < maxIteration)
+                if (gs.Moves <= maxIteration)
                 {
-                    maxIteration = moves;
+                    maxIteration = gs.Moves;
                 }
                 return 0;
             }
             else
             {
-                var perms = GetPermutations(RTG, currentFloor);
+                var perms = GetPermutations(gs);
 
-                moves++;
+                gs.Moves++;
 
                 foreach (var item in perms)
                 {
                     var items = item.Split(",");
 
-                    if (currentFloor == 0 || currentFloor == 1 || currentFloor == 2)
+                    if (gs.currentFloor == 0 || gs.currentFloor == 1 || gs.currentFloor == 2)
                     {
-                        var dupRTG = RTG.DupList();
-                        //var dupRTG = RTG.Clone<List<string[]>>();
-                        List<string> listThis = new List<string>(RTG[currentFloor]);
-                        List<string> listUp = new List<string>(RTG[currentFloor + 1]);
+                        var dupGs = new GState(gs.RTG, gs, gs.Moves, gs.currentFloor + 1);
+                        List<string> listThis = new List<string>(dupGs.RTG[gs.currentFloor]);
+                        List<string> listUp = new List<string>(dupGs.RTG[gs.currentFloor + 1]);
 
                         foreach (var q in items)
                         {
@@ -137,21 +149,20 @@ namespace AdventOfCode.Y2016
                             listUp.Add(q);
                         }
 
-                        dupRTG[currentFloor] = listThis.ToArray();
-                        dupRTG[currentFloor + 1] = listUp.ToArray();
+                        dupGs.RTG[gs.currentFloor] = listThis.ToArray();
+                        dupGs.RTG[gs.currentFloor + 1] = listUp.ToArray();
 
-                        if (CheckIfValid(dupRTG.ToList(), moves))
+                        if (CheckIfValid(dupGs))
                         {
-                            iterate(dupRTG.ToList(), moves, currentFloor + 1);
+                            iterate(dupGs);
                         }
                     }
 
-                    if (currentFloor == 3 || currentFloor == 1 || currentFloor == 2)
+                    if (gs.currentFloor == 3 || gs.currentFloor == 1 || gs.currentFloor == 2)
                     {
-                        var dupRTG = RTG.DupList();
-                        //var dupRTG = RTG.Clone<List<string[]>>();
-                        List<string> listThis = new List<string>(RTG[currentFloor]);
-                        List<string> listDown = new List<string>(RTG[currentFloor - 1]);
+                        var dupGs2 = new GState(gs.RTG, gs, gs.Moves, gs.currentFloor - 1);
+                        List<string> listThis = new List<string>(gs.RTG[gs.currentFloor]);
+                        List<string> listDown = new List<string>(gs.RTG[gs.currentFloor - 1]);
 
                         foreach (var q in items)
                         {
@@ -159,12 +170,12 @@ namespace AdventOfCode.Y2016
                             listDown.Add(q);
                         }
 
-                        dupRTG[currentFloor] = listThis.ToArray();
-                        dupRTG[currentFloor - 1] = listDown.ToArray();
+                        dupGs2.RTG[gs.currentFloor] = listThis.ToArray();
+                        dupGs2.RTG[gs.currentFloor - 1] = listDown.ToArray();
 
-                        if (CheckIfValid(dupRTG.ToList(), moves))
+                        if (CheckIfValid(dupGs2))
                         {
-                            iterate(dupRTG.ToList(), moves, currentFloor - 1);
+                            iterate(dupGs2);
                         }
                     }
                 }
@@ -172,32 +183,33 @@ namespace AdventOfCode.Y2016
             return maxIteration;
         }
 
-        private List<string> GetPermutations(List<string[]> RTG, int currentFloor)
+        private List<string> GetPermutations(GState gs)
         {
             HashSet<string> tmp = new HashSet<string>();
 
-            foreach (var item1 in RTG[currentFloor])
+            foreach (var item1 in gs.RTG[gs.currentFloor])
             {
                 tmp.Add(item1);
-                foreach (var item2 in RTG[currentFloor])
+                foreach (var item2 in gs.RTG[gs.currentFloor])
                 {
                     if (item1 != item2)
                         tmp.Add(string.Compare(item1, item2) >= 0 ? $"{item1},{item2}" : $"{item2},{item1}");
                 }
             }
-
             return tmp.Select(a => a).OrderBy(a => a.Length).Reverse().ToList(); ;
         }
 
-        private bool CheckIfValid(List<string[]> RTG, int moves)
+        public bool CheckIfValid(GState gs)
         {
             string result = "";
-            foreach (var (floor, index) in RTG.WithIndex())
+            foreach (var (floor, index) in gs.RTG.WithIndex())
             {
                 result += $"";
                 result += string.Join($"", floor.OrderBy(a => a).ToArray());
                 result += $"|";
             }
+
+            gs.value = result;
 
             if (history.Contains(result))
             {
@@ -208,15 +220,15 @@ namespace AdventOfCode.Y2016
             return true;
         }
 
-        private void Draw(List<string[]> RTG, int moves, int currentFloor)
+        private void Draw(GState gs)
         {
-            Console.WriteLine($"\nMove: {moves}");
+            Console.WriteLine($"\nMove: {gs.Moves}");
             //System.IO.File.AppendAllText(@"C:\out.txt", $"Move: {moves}/{ctr++}\n");
 
-            for (int i = RTG.Count - 1; i > -1; i--)
+            for (int i = gs.RTG.Count - 1; i > -1; i--)
             {
-                string a = i == currentFloor ? "e" : "";
-                Console.WriteLine($"F{i + 1}{a}\t {string.Join(" ", RTG[i])}");
+                string a = i == gs.currentFloor ? "e" : "";
+                Console.WriteLine($"F{i + 1}{a}\t {string.Join(" ", gs.RTG[i])}");
                 //System.IO.File.AppendAllText(@"C:\out.txt", $"F{i + 1}{a}\t {string.Join("\t", RTG[i])}\n");
             }
             Console.WriteLine();
@@ -230,9 +242,6 @@ namespace AdventOfCode.Y2016
     {
         public int Run(bool part2 = false)
         {
-            //AAlgo algo = new AAlgo();
-            //algo.start();
-
             TComps[] comps = new TComps[part2 ? 7 : 5];
 
             comps[0].set("T", 2, 3);
@@ -264,14 +273,7 @@ namespace AdventOfCode.Y2016
                 items_per_floor[floor + 1] += items_per_floor[floor];
                 floor += 1;
             }
-
-            //HashSet<string> history = new HashSet<string>();
-            //System.IO.File.Delete(@"C:\out.txt");
-            //Draw(RTGIn, 5, 1);
-
-            //return iterate(RTGIn, 5, 1, history);
             return moves;
-
         }
     }
     #endregion
@@ -315,7 +317,7 @@ namespace AdventOfCode.Y2016
                 int m = floor.Select(a => a).Where(a => a.Equals("m")).Count();
                 int g = floor.Select(a => a).Where(a => a.Equals("g")).Count();
 
-                if (g > 0 && m > g)
+                if (g > 0 && m > g + 1)
                 {
                     return false;
                 }
@@ -340,15 +342,13 @@ namespace AdventOfCode.Y2016
         private void GetValue()
         {
             int retVal = 0;
-            retVal += RTG[0].Select(a => a).Count() * 4;
-            retVal += RTG[1].Select(a => a).Count() * 3;
-            retVal += RTG[2].Select(a => a).Count() * 2;
-            retVal += RTG[3].Select(a => a).Count() * 1;
+            retVal += RTG[0].Select(a => a).Count() * 3;
+            retVal += RTG[1].Select(a => a).Count() * 2;
+            retVal += RTG[2].Select(a => a).Count() * 1;
+            retVal += RTG[3].Select(a => a).Count() * 0;
             Value_g = retVal;
         }
     }
-
-
 
     class AAlgo
     {
@@ -369,13 +369,11 @@ namespace AdventOfCode.Y2016
 
             while (activeStates.Any())
             {
-                var checkState = activeStates.OrderBy(x => x.ToTCost_h).First();
+                var checkState = activeStates.OrderBy(x => x.Value_g).First();
 
-                if (checkState.Value_g == finishState.Value_g)
+                if (checkState.Value_g == finishState.Cost)
                 {
-                    int answer = checkState.Cost - 4;
-                    // ¯\_(ツ)_ /¯
-                    return answer;
+                    return checkState.Cost;
                 }
 
                 visitedStates.Add(checkState);
@@ -423,7 +421,8 @@ namespace AdventOfCode.Y2016
                         tmp.Add(string.Compare(item1, item2) >= 0 ? $"{item1},{item2}" : $"{item2},{item1}");
                 }
             }
-            List<State> validStates = GetValidStates(currentState, tmp.Select(a => a).OrderBy(a => a.Length).ToList());
+            tmp.Reverse();
+            List<State> validStates = GetValidStates(currentState, tmp.ToList());
             return validStates;
         }
 
@@ -482,7 +481,5 @@ namespace AdventOfCode.Y2016
             return validStates;
         }
     }
-
     #endregion a
-
 }

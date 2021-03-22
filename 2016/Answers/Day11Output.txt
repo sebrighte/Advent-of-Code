@@ -1,3 +1,3 @@
 AdventOfCode.Y2016.Day11
-Part 1: 37
-Part 2: 61
+Part 1: 37 (A*)
+Part 2: 61 (A*)

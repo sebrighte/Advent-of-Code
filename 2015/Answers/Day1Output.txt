@@ -1,3 +1,3 @@
 AdventOfCode.Y2015.Day01
-Part1: 232
-Part2: 1783
+Part 1: 232
+Part 2: 1783

@@ -1,3 +1,3 @@
 AdventOfCode.Y2015.Day14
-Part1: 2696
-Part2: 1084
+Part 1: 2696
+Part 2: 1084
