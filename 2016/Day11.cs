@@ -5,20 +5,6 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Y2016
 {
-    struct TComps //Day1Simple
-    {
-        public string element;
-        public int gen_floor;
-        public int mic_floor;
-
-        public void set(string e, int g, int m)
-        {
-            element = e;
-            gen_floor = g;
-            mic_floor = m;
-        }
-    }
-
     [ProblemName("Day 11: Radioisotope Thermoelectric Generators")]
     class Day11 : BaseLine, Solution
     {
@@ -85,9 +71,11 @@ namespace AdventOfCode.Y2016
 
             return RTG;
         }
-
     }
 
+    /// <summary>
+    /// Greedy, check all routes/////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// </summary>
     #region Greedy Solution
 
     class GState
@@ -235,9 +223,27 @@ namespace AdventOfCode.Y2016
             //System.IO.File.AppendAllText(@"C:\out.txt", $"\n");
         }
     }
-    #endregion
+    #endregion Greedy Solution
 
+    /// <summary>
+    /// Work out with equation///////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// </summary>
     #region Simple Maths Solution
+
+    struct TComps //Day1Simple
+    {
+        public string element;
+        public int gen_floor;
+        public int mic_floor;
+
+        public void set(string e, int g, int m)
+        {
+            element = e;
+            gen_floor = g;
+            mic_floor = m;
+        }
+    }
+
     class simpleMethod
     {
         public int Run(bool part2 = false)
@@ -278,6 +284,9 @@ namespace AdventOfCode.Y2016
     }
     #endregion
 
+    /// <summary>
+    /// Find optimal path using A*///////////////////////////////////////////////////////////////////////////////////////////////////
+    /// </summary>
     #region A* Agorithm Solution
 
     class State
