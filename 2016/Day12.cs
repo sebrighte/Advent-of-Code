@@ -1,81 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Y2016
 {
     [ProblemName("Day 12: Leonardo's Monorail")]
     class Day12 : BaseLine, Solution
     {
-        public object PartOne(string input) => Day1(input).First();
-        public object PartTwo(string input) => Day1(input).First();
+        public object PartOne(string input) => Day1(input,0,0,0,0).First();
+        public object PartTwo(string input) => Day1(input,0,0,1,0).First();
 
-        private IEnumerable<object> Day1(string inData)
+        private IEnumerable<object> Day1(string inData, int a, int b, int c, int d)
         {
-            //similar to Day8 2020
-
-
-            inData = "cpy 41 a\r\n" +
-            "inc a\r\n" +
-            "inc a\r\n" +
-            "dec a\r\n" +
-            "jnz a 2\r\n" +
-            "dec a";
-
+            //inData = "cpy 41 a\r\ninc a\r\ninc a\r\ndec a\r\njnz a 2\r\ndec a";
 
             List<string> input = inData.Split("\r\n").ToList();
-            Dictionary<string, int> Registry = new Dictionary<string, int>();
 
+            var Registry = new Dictionary<string, int> { {"a", a}, {"b", b}, {"c", c},{"d", d} };         
+                
             for (int i = 0; i < input.Count(); i++)
             {
-                string inst = input[i];
-                
-                string text = inst.Substring(0, 3);
-                switch (text)
+                var fields = input[i].Split(" ");
+                switch (fields[0])
                 {
                     case "cpy":
-                        var match = Regex.Match(inst, @"cpy (\S*) (\S*)");
-
-                        if (match.Groups[1].Value.IsNumber())
-                        {
-                            if (!Registry.ContainsKey(match.Groups[2].Value))
-                                Registry.Add(match.Groups[2].Value, match.Groups[1].Value.ToInt32());
-                            else
-                                Registry[match.Groups[2].Value] = match.Groups[1].Value.ToInt32();
-                        }
-                        else
-                        {
-                            Registry[match.Groups[2].Value] = Registry[match.Groups[1].Value];
-                        }
+                        Registry[fields[2]] = fields[1].IsNumber() ? fields[1].ToInt32() : Registry[fields[1]];
                         break;
                     case "inc":
-                        match = Regex.Match(inst, @"inc (\D*)");
-                        Registry[match.Groups[1].Value] += 1;
+                        Registry[fields[1]] += 1;
                         break;
                     case "dec":
-                        match = Regex.Match(inst, @"dec (\D*)");
-                        Registry[match.Groups[1].Value] -= 1;
+                        Registry[fields[1]] -= 1;
                         break;
                     case "jnz":
-                        match = Regex.Match(inst, @"jnz (\S*) (\S*)");
-
-                        if(match.Groups[1].Value.IsNumber())
-                        {
-                            if (match.Groups[1].Value.ToInt32() != 0) i += match.Groups[2].Value.ToInt32();
-                        }
-                        else 
-                        {
-                            if (!Registry.ContainsKey(match.Groups[1].Value))
-                                Registry.Add(match.Groups[1].Value, 0);
-
-                            if (Registry[match.Groups[1].Value] != 0) i += match.Groups[2].Value.ToInt32();
-                        }
-                        
+                        int val = fields[1].IsNumber() ? fields[1].ToInt32() : Registry[fields[1]];
+                        i += val != 0 ? fields[2].ToInt32() - 1 : 0;
                         break;
                 }
             }
-
             yield return $"{Registry["a"]}";
         }
     }

@@ -12,10 +12,10 @@
 * Day 09 - Explosives in Cyberspace:
 * Day 10 - Balance Bots
 * Day 11 - Radioisotope Thermoelectric Generators: Find optimum path, Solved 3 ways. 1. Maths (not mine) 2. Greedy 3. A*
-* Day 12 - 
-* Day 13 - 
-* Day 14 - 
-* Day 15 - 
+* Day 12 - Leonardo's Monorail: Registers and instruction, initially Rregex (too slow even +compiled) switch to std IO Split (faster)
+* Day 13 - A Maze of Twisty Little Cubicles: Simler version of the A* algorithm used in day 11
+* Day 14 - One-Time Pad: MD5 hashing matching patterns (Part 2 very slow, needs some work....)
+* Day 15 - Timing is Everything: align a set of classes based on time to get optimum path
 * Day 16 - 
 * Day 17 - 
 * Day 18 - 
