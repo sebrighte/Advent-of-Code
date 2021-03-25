@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Security.Cryptography;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace AdventOfCode.Y2016
 {
@@ -28,7 +30,7 @@ namespace AdventOfCode.Y2016
     class Day14 : BaseLine, Solution
     {
         public object PartOne(string input) => Day1(input).Take(64).Last();
-        public object PartTwo(string input) => Day1(input,2016).Take(64).Last();
+        public object PartTwo(string input) => Day1(input, 2016).Take(64).Last();
 
         public static Regex regex3 = new Regex(@"(.)\1{2}", RegexOptions.Compiled);
         public static Regex regex5 = new Regex(@"(.)\1{4}", RegexOptions.Compiled);
@@ -40,9 +42,31 @@ namespace AdventOfCode.Y2016
             List<Hashkey> ValidKeys = new List<Hashkey>();
             int saltIndex = 0;
 
+            Dictionary<int, string> hash = new Dictionary<int, string>();
+
+            int loop = 100;
+            Parallel.For(0, saltIndex + loop, (i) =>
+            {
+                if (!hash.ContainsKey(i)) hash.Add(i, CreateMD5($"{salt}{i}").Skip(rehash).First());
+            });
+
             while (true)
             {
-                string MdRes = CreateMD5($"{salt}{saltIndex}").Skip(rehash).First();
+                if(saltIndex % loop == 0)
+                { 
+                    Parallel.For(saltIndex, saltIndex + loop, (i) =>
+                    {
+                        if (!hash.ContainsKey(i)) hash.Add(i, CreateMD5($"{salt}{i}").Skip(rehash).First());
+                    });
+                }
+
+                while (!hash.ContainsKey(saltIndex))
+                {
+                    if (!hash.ContainsKey(saltIndex)) hash.Add(saltIndex, CreateMD5($"{salt}{saltIndex}").Skip(rehash).First());
+                }
+
+                string MdRes = hash[saltIndex];
+
                 var match = regex3.Match(MdRes);
                 if (match.Success)
                 {
@@ -76,10 +100,7 @@ namespace AdventOfCode.Y2016
                 sb.Clear();
                 byte[] inputBytes = Encoding.ASCII.GetBytes(seed);
                 byte[] hashBytes = md5.ComputeHash(inputBytes);
-                foreach (byte v in hashBytes)
-                {
-                    sb.Append(v.ToString("X2"));
-                }
+                foreach (byte v in hashBytes) sb.Append(v.ToString("X2"));
                 seed = sb.ToString().ToLower();
                 yield return seed;
             }

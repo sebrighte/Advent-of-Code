@@ -46,7 +46,7 @@ namespace AdventOfCode.Y2016
             this.Tick(no-1);
         }
 
-        public int Tick(int cnt = 1)
+        public int Tick( int cnt = 1)
         {
             for (int i = 0; i < cnt; i++)
             {
