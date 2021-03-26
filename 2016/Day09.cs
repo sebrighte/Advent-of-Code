@@ -29,7 +29,6 @@ namespace AdventOfCode.Y2016
 
         private IEnumerable<object> Day2(string inData)
         {
-            System.IO.File.Delete(@"C:\out.txt");
             yield return Expand(inData, 0, inData.Length);
         }
 
@@ -44,8 +43,6 @@ namespace AdventOfCode.Y2016
                     var matches = Regex.Match(input.Substring(i + 1, j - i - 1), @"(\d*)x(\d*)");
                     var (length, mult) = (matches.Groups[1].Value.ToInt32(), matches.Groups[2].Value.ToInt32());
                     res += Expand(input, j + 1, j + length + 1) * mult;
-                    //Console.Write($" Res: {res} Sub: {input.Substring(i + 1, j - i - 1)}");
-                    //System.IO.File.AppendAllText(@"C:\out.txt", $" Res: {res} Sub: {input.Substring(i + 1, j - i - 1)}\n");
                     i = j + length + 1;
                 }
                 else

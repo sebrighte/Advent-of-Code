@@ -6,6 +6,8 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Globalization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace AdventOfCode
 {
@@ -293,7 +295,21 @@ namespace AdventOfCode
 
     class BaseLine
     {
+        public IEnumerable<string> CreateMD5(string seed)
+        {
+            MD5 md5 = MD5.Create();
+            StringBuilder sb = new StringBuilder();
 
+            while (true)
+            {
+                sb.Clear();
+                byte[] inputBytes = Encoding.ASCII.GetBytes(seed);
+                byte[] hashBytes = md5.ComputeHash(inputBytes);
+                foreach (byte v in hashBytes) sb.Append(v.ToString("X2"));
+                seed = sb.ToString().ToLower();
+                yield return seed;
+            }
+        }
 
         protected List<int[]> GetFindPermutationsIntArrToList(int[] set)
         {

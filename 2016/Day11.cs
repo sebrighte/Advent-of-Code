@@ -106,7 +106,6 @@ namespace AdventOfCode.Y2016
             {
                 return 0;
             }
-
             if (gs.RTG[3].Count() == gs.RTG.SelectMany(a => a).Count())
             {
                 if (gs.Moves <= maxIteration)

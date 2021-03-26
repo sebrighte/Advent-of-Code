@@ -7,16 +7,16 @@ namespace AdventOfCode.Y2016
     [ProblemName("Day 8: Two-Factor Authentication")]
     class Day08 : BaseLine, Solution
     {
-        public object PartOne(string input) => Day1(input).First();
-        public object PartTwo(string input) => Day1(input, true).First();
+        //public object PartOne(string input) => Day1(input, 3, 7).First();
+        public object PartOne(string input) => Day1(input, 6, 50).First();
+        public object PartTwo(string input) => Day1(input, 6, 50, true).First();
 
-        private IEnumerable<object> Day1(string inData, bool part2 = false)
+        private IEnumerable<object> Day1(string inData, int height, int width, bool part2 = false)
         {
             //inData = "rect 3x2\r\nrotate column x=1 by 1\r\nrotate row y=0 by 4\r\nrotate column x=1 by 1";
             List<string> input = inData.Split("\r\n").ToList();
-            //char[,] screen = new char[3,7];
-            char[,] screen = new char[6,50];
-            screen.FillCharArray('.');
+            char[,] screen = new char[height,width];
+            screen.FillCharArray(' ');
 
             foreach (var item in input)
             {
