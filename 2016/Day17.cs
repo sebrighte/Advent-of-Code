@@ -49,7 +49,6 @@ namespace AdventOfCode.Y2016
                 {
                     Status stDup = st.Clone();
                     stDup.SetLocation(move);
-                    stDup.AppendHistory(move);
                     iterateRoute(stDup, part2);
                 }
             }
@@ -85,17 +84,14 @@ namespace AdventOfCode.Y2016
         public string seed { get; set; }
         public string seededHistory => $"{seed}{history}";
 
-        public void AppendHistory(string move)
-        {
-            history += move;
-        }
-
         public void SetLocation(string move)
         {
             if (move == "U") X -= 1;
             if (move == "D") X += 1;
             if (move == "L") Y -= 1;
             if (move == "R") Y += 1;
+
+            history += move;
         }
 
         public Status(string seedIn, int XIn=0, int YIn=0, string historyIn="")

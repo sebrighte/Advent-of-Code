@@ -80,6 +80,14 @@ namespace AdventOfCode
             return arr;
         }
 
+        public static void FillIntArray(this int[] arr, int c)
+        {
+            for (int i = 0; i < arr.Count(); i++)
+            { 
+                    arr[i] = c;
+            }
+        }
+
         public static string DrawCharArray(this char[,] arr, bool display = true)
         {
             if(display) Console.WriteLine();
