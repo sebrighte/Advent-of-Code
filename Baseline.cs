@@ -161,6 +161,14 @@ namespace AdventOfCode
                 CultureInfo.CurrentCulture.NumberFormat);
         }
 
+        public static Int64 ToInt64(this string number)
+        {
+            return Int64.Parse(
+                number,
+                NumberStyles.Integer,
+                CultureInfo.CurrentCulture.NumberFormat);
+        }
+
         public static string Repeat(this string text, int num)
         {
             string retVal = "";
@@ -171,8 +179,65 @@ namespace AdventOfCode
             return retVal;
         }
 
+        public static string SwapCharPos(this string text, int pos1, int pos2)
+        {
+            string retVal = text;
+            string char1 = text[pos1].ToString();
+            string char2 = text[pos2].ToString();
+            retVal = retVal.Remove(pos1, 1).Insert(pos1, char2);
+            retVal = retVal.Remove(pos2, 1).Insert(pos2, char1);
+            return retVal;
+        }
 
-        //Regex.Matches(input, "OU=").Count
+        public static string SwapChar(this string text, string char1, string char2)
+        {
+            string retVal = text;
+            int pos1 = text.IndexOf(char1);
+            int pos2 = text.IndexOf(char2);
+            retVal = retVal.Remove(pos1, 1).Insert(pos1, char2);
+            retVal = retVal.Remove(pos2, 1).Insert(pos2, char1);
+            return retVal;
+        }
+
+        public static string ReversePos(this string text, int pos1, int pos2)
+        {
+            string retVal = text;
+            string tmp = retVal.Substring(pos1, pos2 - pos1 + 1);
+            retVal = retVal.Remove(pos1, pos2 - pos1 + 1);
+            retVal = retVal.Insert(pos1, tmp.ReverseAll());
+            return retVal;
+        }
+
+        public static string Move(this string text, int pos1, int pos2)
+        {
+            string retVal = text;
+            string val = retVal[pos1].ToString();
+            retVal = retVal.Remove(pos1, 1).Insert(pos2, val);
+            return retVal;
+        }
+
+        public static string RotateStepLeft(this string text, int pos)
+        {
+            string retVal = text;
+            for (int i = 0; i < pos; i++)
+            {
+                string val = retVal[0].ToString();
+                retVal = retVal.Remove(0, 1).Insert(retVal.Length - 1, val);
+            }
+            return retVal;
+        }
+
+        public static string RotateStepRight(this string text, int pos)
+        {
+            string retVal = text;
+            for (int i = pos - 1; i >= 0; i--)
+            {
+                string val = retVal[retVal.Length - 1].ToString();
+                retVal = retVal.Remove(retVal.Length - 1, 1).Insert(0, val);
+            }
+            return retVal;
+        }
+
         public static int CountStringInstances(this string text, string search)
         {
             return Regex.Matches(text, search).Count;

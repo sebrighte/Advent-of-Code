@@ -13,16 +13,16 @@
 * Day 10 - Balance Bots
 * Day 11 - Radioisotope Thermoelectric Generators: Find optimum path, Solved 3 ways. 1. Maths (not mine) 2. Greedy 3. A*
 * Day 12 - Leonardo's Monorail: Registers and instruction, initially Regex (too slow even +compiled) switch to std IO Split (faster)
-* Day 13 - A Maze of Twisty Little Cubicles: Simpler version of the A* algorithm used in day 11
+* Day 13 - A Maze of Twisty Little Cubicles: Simpler version of the A* Algorithm used in day 11
 * Day 14 - One-Time Pad: MD5 hashing matching patterns (Part 2 very slow, using parallel threads but needs some work....)
 * Day 15 - Timing is Everything: Align a set of classes based on time to get optimum path
 * Day 16 - Dragon Checksum: Make data and checksum for disc overwrite, string manipulation, substitution, and string builder
 * Day 17 - Two Steps Forward: Greedy checking of all posible routes to vault using recursive function
-* Day 18 - 
-* Day 19 - 
-* Day 20 - 
-* Day 21 - 
-* Day 22 - 
+* Day 18 - Like a Rogue: Use last pattern to create new row, very slow on Part 2
+* Day 19 - An Elephant Named Joseph: Match patterns and create simple equations to get result
+* Day 20 - Firewall Rules: Search ranges (or gaps)
+* Day 21 - Scrambled Letters and Hash: String manipulation, added to string extensions
+* Day 22 - Grid Computing: Double A* Algorithm to navigate cluster nodes to move data
 * Day 23 - 
 * Day 24 - 
 * Day 25 -

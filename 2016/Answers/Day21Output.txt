@@ -1,0 +1,3 @@
+AdventOfCode.Y2016.Day21
+Part 1: ghfacdbe
+Part 2: fhgcdaeb
