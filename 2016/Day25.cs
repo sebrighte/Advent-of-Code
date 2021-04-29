@@ -9,7 +9,7 @@ namespace AdventOfCode.Y2016
     class Day25 : BaseLine, Solution
     {
         public object PartOne(string input) => Day1(input).First();
-        public object PartTwo(string input) => "Complete";
+        public object PartTwo(string input) => "2016 Complete";
 
         private IEnumerable<object> Day1(string inData)
         {
@@ -49,8 +49,9 @@ namespace AdventOfCode.Y2016
                         i += val != 0 ? fields[2].ToInt32() - 1 : 0;
                         break;
                 }
-                if (result.Length > 10) break;
+                if (result.Length > 8) break;
             }
+            //Console.WriteLine($"{result} {a}");
             yield return Regex.IsMatch(result, @"^(01)*0?$");
         }
     }

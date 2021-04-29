@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <Folder Include="2015\Answers\" />
+    <Folder Include="2017\Data\" />
+    <Folder Include="2017\Answers\" />
     <Folder Include="2020\Answers\" />
   </ItemGroup>
 
