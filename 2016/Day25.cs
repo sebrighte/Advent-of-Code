@@ -11,8 +11,6 @@ namespace AdventOfCode.Y2016
         public object PartOne(string input) => Day1(input).First();
         public object PartTwo(string input) => "Complete";
 
-
-
         private IEnumerable<object> Day1(string inData)
         {
             List<string> input = inData.Split("\r\n").ToList();
