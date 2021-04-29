@@ -7,38 +7,37 @@ namespace AdventOfCode.Y2016
     [ProblemName("Day24: Air Duct Spelunking")]
     class Day24 : BaseLine, Solution
     {
-        public object PartOne(string input) => Solver(input);
+        public object PartOne(string input) => Solver(input,false);
         public object PartTwo(string input) => Solver(input,true);
 
-        private Dictionary<string, int> savedRoutes = new Dictionary<string, int>();
-        private int minVal = int.MaxValue;
+        private Dictionary<string, int> calculatedRoutes = new Dictionary<string, int>();
+        private int minRouteVal = int.MaxValue;
 
-        private int Solver(string inData,bool part2 = false)
+        private int Solver(string inData,bool part2)
         {
             //inData = "###########\r\n#0.1.....2#\r\n#.#######.#\r\n#4.......3#\r\n###########\r\n";
 
-            minVal = int.MaxValue;
+            minRouteVal = int.MaxValue;
             //savedRoutes.Clear();
-            List<string> map = inData.Split("\r\n").ToList();
-            var positions = int.Parse(inData.Where(a => char.IsDigit(a)).Max().ToString());
-            string nodes = string.Join("", Enumerable.Range(1, positions).Select(x => x).OrderBy(x => x));
-            TileDay24BestRoute start = new TileDay24BestRoute(0, 0, nodes,null);
-            return CalculateBestRoute(map, start, part2);
+            var nodeMax = int.Parse(inData.Where(a => char.IsDigit(a)).Max().ToString());
+            string nodeList = string.Join("", Enumerable.Range(1, nodeMax).Select(x => x).OrderBy(x => x));
+            TileDay24BestRoute startNode = new TileDay24BestRoute(0, 0, nodeList, null);
+            return BestRouteCalculate(inData.Split("\r\n").ToList(), startNode, part2);
         }
 
-        public int CalculateBestRoute(List<string> map, TileDay24BestRoute node, bool part2)
+        public int BestRouteCalculate(List<string> map, TileDay24BestRoute node, bool part2)
         {
             int park = node.distanceTot + (part2? CalcRouteTryStored(map, node.id, 0) : 0);
 
-            if (park > minVal) return 0;
+            if (park > minRouteVal) return 0;
 
             if (node.permitted.Length == 0)
-                if (park < minVal) minVal = park;
+                if (park < minRouteVal) minRouteVal = park;
 
             foreach (var move in BestRouteGetNextMoves(map, node))
-                CalculateBestRoute(map, move, part2);
+                BestRouteCalculate(map, move, part2);
 
-            return minVal;
+            return minRouteVal;
         }
 
         private List<TileDay24BestRoute> BestRouteGetNextMoves(List<string> map, TileDay24BestRoute current)
@@ -60,12 +59,12 @@ namespace AdventOfCode.Y2016
         {
             int retVal = 0;
             string routeSearch = $"{Math.Max(Start, End)}-{Math.Min(Start, End)}";
-            if (savedRoutes.ContainsKey(routeSearch))
-                retVal = savedRoutes[routeSearch];
+            if (calculatedRoutes.ContainsKey(routeSearch))
+                retVal = calculatedRoutes[routeSearch];
             else 
             {
                 retVal = CalcRoute(map, Math.Max(Start, End), Math.Min(Start, End));
-                savedRoutes.Add(routeSearch, retVal);
+                calculatedRoutes.Add(routeSearch, retVal);
             }
             return retVal;
         }
@@ -100,7 +99,7 @@ namespace AdventOfCode.Y2016
                 visitedTiles.Add(checkTile);
                 activeTiles.Remove(checkTile);
 
-                var walkableTiles = GetValidTiles(map, checkTile, finish);
+                var walkableTiles = CalcRouteMoves(map, checkTile, finish);
 
                 foreach (var walkableTile in walkableTiles)
                 {
@@ -125,7 +124,7 @@ namespace AdventOfCode.Y2016
             return 0;
         }
 
-        private static List<TileDay24Route> GetValidTiles(List<string> map, TileDay24Route currentTile, TileDay24Route targetTile)
+        private static List<TileDay24Route> CalcRouteMoves(List<string> map, TileDay24Route currentTile, TileDay24Route targetTile)
         {
             var possibleTiles = new List<TileDay24Route>()
             {
