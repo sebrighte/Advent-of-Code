@@ -42,20 +42,20 @@ namespace AdventOfCode.Y2016
 
             HashSet<string> part2 = new HashSet<string>();
 
-            var start = new Tile();
+            var start = new TileDay13();
             start.Y = map.FindIndex(x => x.Contains("A"));
             start.X = map[start.Y].IndexOf("A");
 
 
-            var finish = new Tile();
+            var finish = new TileDay13();
             finish.Y = map.FindIndex(x => x.Contains("B"));
             finish.X = map[finish.Y].IndexOf("B");
 
             start.SetDistance(finish.X, finish.Y);
 
-            var activeTiles = new List<Tile>();
+            var activeTiles = new List<TileDay13>();
             activeTiles.Add(start);
-            var visitedTiles = new List<Tile>();
+            var visitedTiles = new List<TileDay13>();
 
 
             while (true)
@@ -131,20 +131,20 @@ namespace AdventOfCode.Y2016
 
             //map.ForEach(a => Console.WriteLine(a));
 
-            var start = new Tile();
+            var start = new TileDay13();
             start.Y = map.FindIndex(x => x.Contains("A"));
             start.X = map[start.Y].IndexOf("A");
 
 
-            var finish = new Tile();
+            var finish = new TileDay13();
             finish.Y = map.FindIndex(x => x.Contains("B"));
             finish.X = map[finish.Y].IndexOf("B");
 
             start.SetDistance(finish.X, finish.Y);
 
-            var activeTiles = new List<Tile>();
+            var activeTiles = new List<TileDay13>();
             activeTiles.Add(start);
-            var visitedTiles = new List<Tile>();
+            var visitedTiles = new List<TileDay13>();
 
             bool MoreTiles = true;
 
@@ -194,14 +194,14 @@ namespace AdventOfCode.Y2016
             return Convert.ToString(retVal, 2).Where(a => a == '1').Count() % 2 == 0 ? '.' : '#';
         }
 
-        private static List<Tile> GetWalkableTiles(List<string> map, Tile currentTile, Tile targetTile)
+        private static List<TileDay13> GetWalkableTiles(List<string> map, TileDay13 currentTile, TileDay13 targetTile)
         {
-            var possibleTiles = new List<Tile>()
+            var possibleTiles = new List<TileDay13>()
             {
-                new Tile { X = currentTile.X, Y = currentTile.Y - 1, Parent = currentTile, Cost = currentTile.Cost + 1 },
-                new Tile { X = currentTile.X, Y = currentTile.Y + 1, Parent = currentTile, Cost = currentTile.Cost + 1},
-                new Tile { X = currentTile.X - 1, Y = currentTile.Y, Parent = currentTile, Cost = currentTile.Cost + 1 },
-                new Tile { X = currentTile.X + 1, Y = currentTile.Y, Parent = currentTile, Cost = currentTile.Cost + 1 },
+                new TileDay13 { X = currentTile.X, Y = currentTile.Y - 1, Parent = currentTile, Cost = currentTile.Cost + 1 },
+                new TileDay13 { X = currentTile.X, Y = currentTile.Y + 1, Parent = currentTile, Cost = currentTile.Cost + 1},
+                new TileDay13 { X = currentTile.X - 1, Y = currentTile.Y, Parent = currentTile, Cost = currentTile.Cost + 1 },
+                new TileDay13 { X = currentTile.X + 1, Y = currentTile.Y, Parent = currentTile, Cost = currentTile.Cost + 1 },
             };
 
             possibleTiles.ForEach(tile => tile.SetDistance(targetTile.X, targetTile.Y));
@@ -217,14 +217,14 @@ namespace AdventOfCode.Y2016
         }
     }
 
-    class Tile
+    class TileDay13
     {
         public int X { get; set; }
         public int Y { get; set; }
         public int Cost { get; set; }
         public int Distance { get; set; }
         public int CostDistance => Cost + Distance;
-        public Tile Parent { get; set; }
+        public TileDay13 Parent { get; set; }
  
         public void SetDistance(int targetX, int targetY)
         {
