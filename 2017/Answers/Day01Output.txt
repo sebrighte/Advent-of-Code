@@ -1,3 +1,0 @@
-AdventOfCode.Y2017.Day01
-Part 1: To Do 
-Part 2: To Do 

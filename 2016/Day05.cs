@@ -14,7 +14,7 @@ namespace AdventOfCode.Y2016
 
         private object SearchForHashPt1(string input)
         {
-            return "1a3099aa";
+            //return "1a3099aa";
 
             long ctr = 4500000;
             string password = "";
@@ -40,7 +40,7 @@ namespace AdventOfCode.Y2016
 
         private object SearchForHashPt2(string input)
         {
-            return "694190cd";
+            //return "694190cd";
 
             long ctr = 4500000;
             string password = "########";

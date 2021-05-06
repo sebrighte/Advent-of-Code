@@ -57,7 +57,6 @@ namespace AdventOfCode.Y2016
             activeTiles.Add(start);
             var visitedTiles = new List<TileDay13>();
 
-
             while (true)
             {
                 var checkTile = activeTiles.OrderBy(x => x.CostDistance).First();
@@ -120,8 +119,8 @@ namespace AdventOfCode.Y2016
                 }
             }
 
-            Console.WriteLine("No Path Found!");
-            yield return $"";
+            //Console.WriteLine("No Path Found!");
+            //yield return $"";
         }
 
         private IEnumerable<object> Day2(List<string> map)

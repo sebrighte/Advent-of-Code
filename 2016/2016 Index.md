@@ -23,6 +23,6 @@
 * Day 20 - Firewall Rules: Search ranges (or gaps)
 * Day 21 - Scrambled Letters and Hash: String manipulation, added to string extensions
 * Day 22 - Grid Computing: Double A* Algorithm to navigate cluster nodes to move data
-* Day 23 - 
-* Day 24 - 
-* Day 25 -
+* Day 23 - Safe Cracking: Part1 read instructions, Part2 look at data to manageg loops and address with code
+* Day 24 - Air Duct Spelunking: A* Part1 on work out best route, Part2 work out best route to get back to start
+* Day 25 - Clock Signal: Check what output meets the 101010... output by loopoing register input

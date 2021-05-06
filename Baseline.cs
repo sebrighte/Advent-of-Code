@@ -161,6 +161,14 @@ namespace AdventOfCode
                 CultureInfo.CurrentCulture.NumberFormat);
         }
 
+        public static Int32 ToInt32(this char number)
+        {
+            return Int32.Parse(
+                number.ToString(),
+                NumberStyles.Integer,
+                CultureInfo.CurrentCulture.NumberFormat);
+        }
+
         public static Int64 ToInt64(this string number)
         {
             return Int64.Parse(
@@ -324,25 +332,25 @@ namespace AdventOfCode
         /// <typeparam name="T">Type of the return object.</typeparam>
         /// <param name="item">Object to be copied.</param>
         /// <returns>Returns the copied object.</returns>
-        public static T Clone<T>(this object item)
-        {
-            if (item != null)
-            {
-                BinaryFormatter formatter = new BinaryFormatter();
-                MemoryStream stream = new MemoryStream();
+        //public static T Clone<T>(this object item)
+        //{
+        //    if (item != null)
+        //    {
+        //        BinaryFormatter formatter = new BinaryFormatter();
+        //        MemoryStream stream = new MemoryStream();
 
-                formatter.Serialize(stream, item);
-                stream.Seek(0, SeekOrigin.Begin);
+        //        formatter.Serialize(stream, item);
+        //        stream.Seek(0, SeekOrigin.Begin);
 
-                T result = (T)formatter.Deserialize(stream);
+        //        T result = (T)formatter.Deserialize(stream);
 
-                stream.Close();
+        //        stream.Close();
 
-                return result;
-            }
-            else
-                return default(T);
-        }
+        //        return result;
+        //    }
+        //    else
+        //        return default(T);
+        //}
 
         public static IList<T> DupList<T>(this IList<T> listToClone) where T : ICloneable
         {

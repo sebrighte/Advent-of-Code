@@ -25,7 +25,7 @@ namespace AdventOfCode.Y2016
             return BestRouteCalculate(inData.Split("\r\n").ToList(), startNode, part2);
         }
 
-        public int BestRouteCalculate(List<string> map, TileDay24BestRoute node, bool part2)
+        private int BestRouteCalculate(List<string> map, TileDay24BestRoute node, bool part2)
         {
             int park = node.distanceTot + (part2? CalcRouteTryStored(map, node.id, 0) : 0);
 
@@ -124,7 +124,7 @@ namespace AdventOfCode.Y2016
             return 0;
         }
 
-        private static List<TileDay24Route> CalcRouteMoves(List<string> map, TileDay24Route currentTile, TileDay24Route targetTile)
+        private List<TileDay24Route> CalcRouteMoves(List<string> map, TileDay24Route currentTile, TileDay24Route targetTile)
         {
             var possibleTiles = new List<TileDay24Route>()
             {
