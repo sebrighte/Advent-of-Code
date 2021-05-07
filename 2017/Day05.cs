@@ -7,10 +7,10 @@ namespace AdventOfCode.Y2017
     [ProblemName("Day5: A Maze of Twisty Trampolines, All Alike")]
     class Day05 : BaseLine, Solution
     {
-        public object PartOne(string input) => Day1(input, false).Count();
-        public object PartTwo(string input) => Day1(input, true).Count();
+        public object PartOne(string input) => Solver(input, false).Count();
+        public object PartTwo(string input) => Solver(input, true).Count();
 
-        private IEnumerable<object> Day1(string inData, bool part2)
+        private IEnumerable<object> Solver(string inData, bool part2)
         {
             //inData = "0\r\n3\r\n0\r\n1\r\n-3";
             List<int> input = inData.Split("\r\n").Select(a => int.Parse(a)).ToList();
