@@ -14,6 +14,8 @@
 ### Framework
 * IDE
     * Visual Studio 2019
+    * Console Application
+    * Framework MS.NET 5.0
 * Folder Structure
     * Top level - All the framework files
     * Year Index - Markdown details of all solutions for given year
