@@ -27,6 +27,8 @@
         * Definitions for framework atributes
         * Project extensions (e.g. Strings, Arrays)
         * Project reusable functions
+    * All solutions inherit from solution, this contains
+        * Interface specification for the code responses
     * Input data is automitically seleced if file is present based in Namespace and Class name
    
 ### Solution example
