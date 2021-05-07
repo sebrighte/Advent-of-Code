@@ -376,7 +376,7 @@ namespace AdventOfCode
 
     class BaseLine
     {
-        public IEnumerable<string> CreateMD5(string seed)
+        protected IEnumerable<string> CreateMD5(string seed)
         {
             MD5 md5 = MD5.Create();
             StringBuilder sb = new StringBuilder();
@@ -497,23 +497,6 @@ namespace AdventOfCode
             return source.OrderBy<T, int>((item) => rnd.Next());
         }
 
-        /*
-        int[] arr = new int[] { 1, 1, 1, 2, 2, 3, 4 };
-        //string[] arr = new string[] { "AB", "BH", "CY", "DP" };
-        var res = GetIntPermutations(arr);
-
-        string p = "";
-            foreach (var lst in res)
-                p +=  string.Join(" ", lst.ToArray()) + "\r\n";
-            yield return p;
-        */
-
-        /// <summary>
-        /// GetIntPermutations from integer array
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="elements"></param>
-        /// <returns>List<List<int>></returns>
         protected List<List<int>> GetIntPermutations(int[] elements)
         {
             var tmp = new List<int>();
@@ -525,12 +508,6 @@ namespace AdventOfCode
                          .ToList();
         }
 
-        /// <summary>
-        /// GetIntPermutations from string array
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="elements"></param>
-        /// <returns>List<List<string>></returns>
         protected List<List<string>> GetIntPermutations(string[] elements)
         {
             var tmp = new List<string>();

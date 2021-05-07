@@ -1,0 +1,3 @@
+AdventOfCode.Y2017.Day05
+Part 1: 388611
+Part 2: 27763113

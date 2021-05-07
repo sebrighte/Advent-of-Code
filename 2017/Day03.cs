@@ -22,19 +22,15 @@ namespace AdventOfCode.Y2017
                 index += 2;
             }
 
+            int sqrt = ((int)Math.Sqrt(mult) - 1);
             //Relate value to BRC
-            int btm = mult - ((int)Math.Sqrt(mult)-1);
-            while(value < btm)
-            {
-                value += ((int)Math.Sqrt(mult) - 1);
-            }
+            int btm = mult - sqrt;
+            while(value < btm) value += sqrt;
 
             //Calc path
-            int halfSqrt = (int)(Math.Sqrt(mult) - 1) / 2;
-            int valDiff = (int)(mult - halfSqrt);
-            int pathDist = (int)(Math.Abs(valDiff - value) + halfSqrt);
-
-            yield return pathDist;
+            int halfSqrt = sqrt / 2;
+            int valDiff = mult - halfSqrt;
+            yield return Math.Abs(valDiff - value) + halfSqrt;
         }
 
         private IEnumerable<object> Day2(int value)
@@ -47,8 +43,12 @@ namespace AdventOfCode.Y2017
 
             int gridSize = 3; //inital spiral size 3x3(9)
 
+           
+
             while(true)
             {
+               
+
                 int max = 0 + (gridSize / 2);
                 int min = 0 - (gridSize / 2);
                 int result = 0;
@@ -97,6 +97,20 @@ namespace AdventOfCode.Y2017
             if (grid.ContainsKey($"{x - 1}@{y - 1}")) retval += grid[$"{x - 1}@{y - 1}"];   //bottom/left
             if (grid.ContainsKey($"{x - 1}@{y    }")) retval += grid[$"{x - 1}@{y    }"];   //bottom
             if (grid.ContainsKey($"{x - 1}@{y + 1}")) retval += grid[$"{x - 1}@{y + 1}"];   //bottom/right
+
+            //for (int a = 4; a > -4; a--)
+            //{
+            //    for (int b = -3; b < 5; b++)
+            //    {
+            //        if (grid.ContainsKey($"{a}@{b}"))
+            //            Console.Write(grid[$"{a}@{b}"] + "\t");
+            //        else
+            //            Console.Write("?\t");
+            //    }
+            //    Console.WriteLine();
+            //}
+            //Console.WriteLine();
+
             return retval;
         }
     }
