@@ -92,35 +92,3 @@ namespace AdventOfCode
         }
     }
 }
-
-/*
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdventOfCode.Y2015
-{
-    [ProblemName("Day 2: I Was Told There Would Be No Math")]
-    class Day2 : BaseLine, Solution
-    {
-        public string Solve1() => ProcessDay1();
-        public string Solve2() => ProcessDay2();
-
-        List<string> input = ParseInputStrtoListStr(@"C:\Users\sebrighte\source\repos\Advent of Code 2015\data\Day02Input.txt");
-
-        private string ProcessDay1()
-        {
-            return "";
-        }
-
-        private string ProcessDay2()
-        {
-            return "";
-        }
-    }
-}
-*/
-

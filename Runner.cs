@@ -68,8 +68,13 @@ namespace AdventOfCode
                     answers.Add(solution.ToString());
 
                     var input = "";
+                    string fileName = "";
                     var dayName = solution.GetName().Split(':')[0].Replace(" ", "");
-                    string fileName = $@"..\..\..\{year}\data\{dayName}input.txt";
+                    if (solution.GetName().Contains("@TEST@"))
+                        fileName = $@"..\..\..\{year}\data\{dayName}inputTest.txt";
+                    else
+                        fileName = $@"..\..\..\{year}\data\{dayName}input.txt";
+
                     if (File.Exists(fileName))
                     {
                         input = GetNormalizedInput(fileName);
