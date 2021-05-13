@@ -1,5 +1,5 @@
-# __Index__ - Advent Of Code 2015 
-### [Link to AOC 2015](https://adventofcode.com/2015/)
+# __Index__ - Advent Of Code 2017 
+### [Link to AOC 2017](https://adventofcode.com/2017/)
 
 * Day 01 - Day1: Inverse Captcha - String and char manipulation on looping string
 * Day 02 - Day2: Corruption Checksum - Read in spreadshhet and check values and use LINQ to calculte for Part2
@@ -8,8 +8,8 @@
 * Day 05 - Day5: A Maze of Twisty Trampolines, All Alike - Navigate an int list gien jumps
 * Day 06 - Day6: Memory Reallocation: manage registry update values
 * Day 07 - Day7: Recursive Circus - Several recursive functions to get structure and details
-* Day 08 - Day8: I Heard You Like Registers - Instructions action on registers (multi format Regex match)
-* Day 09 - 
+* Day 08 - Day8: I Heard You Like Registers - Instructions action on registers (multi-format Regex match)
+* Day 09 - Day9: Stream Processing - String (stream) processing
 * Day 10 - 
 * Day 11 - 
 * Day 12 - 
