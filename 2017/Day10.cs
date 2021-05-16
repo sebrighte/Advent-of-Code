@@ -13,40 +13,53 @@ namespace AdventOfCode.Y2017
         private IEnumerable<object> Solver1()
         {
             string inData = "120,93,0,90,5,80,129,74,1,165,204,255,254,2,50,113";
-            int ropeLen = 256;
-            
-            List<int> rope = Enumerable.Range(0, ropeLen).ToList();
-            int pos = 0;
-            int skip = 0;
-            rope = Hash(rope, inData, ref pos, ref skip);
+            List<int> rope = Enumerable.Range(0, 256).ToList();
+            rope = HashSingle(rope, inData);
             yield return $"{rope[0] * rope[1]}";
         }
 
         private IEnumerable<object> Solver2()
         {
             string inData = "120,93,0,90,5,80,129,74,1,165,204,255,254,2,50,113";
-            int ropeLen = 256;
-            int offset = 0;
-            int skip = 0;
-            string hexValue = "";
-            List<int> rope = Enumerable.Range(0, ropeLen).ToList();
-
-            inData = string.Join(",", inData.Select(a => (int)a).ToArray()) + ",17,31,73,47,23";
-
-            for (int i = 0; i < 64; i++)
-                rope = Hash(rope, inData, ref offset, ref skip);
-
-            for (int i = 0; i < 16; i++){
-                int value = 0;
-                var tmpRope = rope.Skip(i*16).Take(16);
-                foreach (var (val, index) in tmpRope.WithIndex())
-                    value = index == 0 ? val : value ^ val;
-                hexValue += value.ToString("X").PadLeft(2, '0');
-            }
-            yield return $"{hexValue.ToLower()}";
+            List<int> rope = Enumerable.Range(0, 256).ToList();
+            yield return $"{KnotEncrypt(inData)}";
         }
 
-        private List<int> Hash (List<int> rope, string inData, ref int pos, ref int skip)
+        private List<int> HashSingle(List<int> rope, string inData)
+        {
+            int pos = 0;
+            int skip = 0;
+            return Hash(rope, inData, ref pos, ref skip);
+        }
+
+        public static string KnotEncrypt(string inData)
+        {
+            inData = string.Join(",", inData.Select(a => (int)a).ToArray()) + ",17,31,73,47,23";
+
+            int ropeLen = 256;
+            string hexValue = "";
+
+            List<int> rope = Enumerable.Range(0, ropeLen).ToList();
+            int pos = 0;
+            int skip = 0;
+            int offset = 0;
+
+            for (int i = 0; i < 64; i++)
+                rope = Day10.Hash(rope, inData, ref offset, ref skip);
+
+            for (int i = 0; i < 16; i++)
+            {
+                int value = 0;
+                var tmpRope = rope.Skip(i * 16).Take(16);
+                foreach (var (val, index) in tmpRope.WithIndex())
+                    value = index == 0 ? val : value ^ val;
+                hexValue += value.ToString("X").PadLeft(2, '0').ToLower();
+            }
+
+            return hexValue;
+        }
+
+        private static List<int> Hash(List<int> rope, string inData, ref int pos, ref int skip)
         {
             List<int> input = inData.Split(",").Select(a => int.Parse(a)).ToList();
 

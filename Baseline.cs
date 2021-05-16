@@ -128,6 +128,10 @@ namespace AdventOfCode
             return source.Select((item, index) => (item, index));
         }
 
+        public static string RemoveWhitespace(this string text)
+        {
+            return text.Replace(" ", "");
+        }
 
         public static int CountFindChar(this string text, char c)
         {
