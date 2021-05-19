@@ -68,6 +68,29 @@ namespace AdventOfCode
 
     public static class ArrayExtensions
     {
+        //Linked List Char
+        public static int IndexOf(this LinkedList<char> list, char find)
+        {
+            return list.ToArray().ToList().IndexOf(find);
+        }
+
+        public static LinkedListNode<char> NodeAt(this LinkedList<char> list, int find)
+        {
+            return list.Find(list.ElementAt(find));
+        }
+
+        //Linked List Int
+        public static int IndexOf(this LinkedList<int> list, int find)
+        {
+            return list.ToArray().ToList().IndexOf(find);
+        }
+
+        public static LinkedListNode<int> NodeAt(this LinkedList<int> list, int find)
+        {
+            return list.Find(list.ElementAt(find));
+        }
+
+        //Array
         public static char[,] FillCharArray(this char[,] arr, char c)
         {
             for (int i = 0; i < arr.GetLength(0); i++)
