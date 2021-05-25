@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AdventOfCode._2017
+namespace AdventOfCode.Y2017
 {
     [ProblemName("Day19: A Series of Tubes")]
     //[ProblemName("Day19: ...@TEST@")]
