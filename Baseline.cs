@@ -66,8 +66,14 @@ namespace AdventOfCode
         }
     }
 
-    public static class ArrayExtensions
+    public static class Extensions
     {
+        //Object/ Property
+        public static object GetPropertyValue(this object obj, string propertyName)
+        {
+            return obj.GetType().GetProperty(propertyName).GetValue(obj, null);
+        }
+
         //Linked List Char
         public static int IndexOf(this LinkedList<char> list, char find)
         {
@@ -180,23 +186,34 @@ namespace AdventOfCode
             return text.Remove(text.IndexOf(c1), text.IndexOf(c2) - text.IndexOf(c1) + 1);
         }
 
-        public static Int32 ToInt32(this string number)
+
+
+
+        public static int ToInt32(this string number)
         {
-            return Int32.Parse(
+            long retVal = Int64.Parse(
                 number,
                 NumberStyles.Integer,
                 CultureInfo.CurrentCulture.NumberFormat);
+
+            if(retVal > int.MaxValue || retVal < int.MinValue)
+                throw new Exception("Value Exceeds int32");
+            return (int)retVal;
         }
 
-        public static Int32 ToInt32(this char number)
+        public static int ToInt32(this char number)
         {
-            return Int32.Parse(
+            long retVal = Int64.Parse(
                 number.ToString(),
                 NumberStyles.Integer,
                 CultureInfo.CurrentCulture.NumberFormat);
+
+            if (retVal > int.MaxValue || retVal < int.MinValue)
+                throw new Exception("Value Exceeds int32");
+            return (int)retVal;
         }
 
-        public static Int64 ToInt64(this string number)
+        public static long ToInt64(this string number)
         {
             return Int64.Parse(
                 number,
@@ -329,7 +346,8 @@ namespace AdventOfCode
         /// <returns>True if sring can be parsed as an integer</returns>
         public static bool IsNumber(this string text)
         {
-            return int.TryParse(text, out int i);
+            bool retVal = int.TryParse(text, out int i);
+            return retVal;
         }
 
         public static string ReverseAll(this string text)
@@ -340,7 +358,7 @@ namespace AdventOfCode
         }
 
         /// <summary>
-        /// 
+        /// retVal
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
